@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title th:text="#{registrations.title}" />
+</head>
+<body>
+
+<div class="container">
+    <h3 th:text="#{registrations.title}" />
+    <hr>
+</div>
+
+<div class="container">
+    <form action="#" th:action="@{/save}" th:object="${dentistVisitEntity}" method="post">
+        <div>
+            <div>
+                <input type="hidden" th:field="*{id}" />
+            </div>
+
+            <div>
+                <div style="display:inline-block; width:200px;"><p th:text="#{form.dentistName}">dentist.name</p></div>
+                <div style="display:inline-block">
+                    <select th:field="*{dentistName}">
+                        <option
+                                th:each="dentist: ${dentists}"
+                                th:value="${dentist}"
+                                th:text="${dentist}">
+                        </option>
+                    </select>
+                </div>
+                <div style="display:inline-block"><p class="text-danger" th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}">name.error</p></div>
+            </div>
+
+            <div>
+                <div style="display:inline-block; width:200px;"><p th:text="#{form.visitDateTime}">visit.date</p></div>
+                <div style="display:inline-block"><input type="datetime-local" th:value="*{visitDateTime}" th:field="*{visitDateTime}"/></div>
+                <div style="display:inline-block"><p class="text-danger" th:if="${#fields.hasErrors('visitDateTime')}" th:errors="*{visitDateTime}">date.error</p></div>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-info" th:text="#{form.registerVisit}"></button>
+            </div>
+        </div>
+        <hr>
+        <div><a th:href ="@{/registrations}" th:text="#{form.registerBack}" /></div>
+
+    </form>
+</div>
+</body>
+</html>

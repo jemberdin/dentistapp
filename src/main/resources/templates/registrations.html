@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title th:text="#{registrations.title}" />
+</head>
+
+<body>
+<div class="container">
+
+    <h3 th:text="#{registrations.title}" />
+    <div id="message" th:if="${message != null}" class="alert alert-success" th:text="#{registrations.delete.success}">
+        Success
+    </div>
+    <hr>
+
+    <!-- Register button -->
+    <a th:href="@{/}" class="btn btn-primary btn-sm mb-3" th:text="#{registrations.add}" />
+
+    <!-- Search field with button -->
+    <form th:action="@{/search}" method="GET">
+    <div class="input-group">
+        <input name="dentistName" id="dentistName" th:value="${dentistName}" type="text" class="form-control mb-3 col-5" placeholder="Otsi hambaarsti nime järgi...">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-success mb-3" th:text="#{registrations.search.button}">Button</button>
+        </div>
+    </div>
+    </form>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th th:text="#{form.dentistName}" />
+            <th th:text="#{form.visitDateTime}" />
+            <th th:text="#{registrations.delete}" />
+            <th th:text="#{registrations.update}" />
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="visit : ${visits}">
+            <td th:onclick="'javascript:rowClicked(\'' + ${visit.id} + '\');'" th:text="${visit.dentistName}"></td>
+            <!-- Date format https://www.codeflow.site/ru/article/dates-in-thymeleaf -->
+            <td th:onclick="'javascript:rowClicked(\'' + ${visit.id} + '\');'" th:text="${#temporals.format(visit.visitDateTime, 'dd.MM.yyyy HH:mm')}" />
+
+            <td>
+                <form action="#" th:action="@{/delete}" method="POST">
+                    <input type="hidden" name="id" th:value="${visit.id}" />
+                    <button type="submit" class="btn btn-danger btn-sm" th:text="#{registrations.delete}"
+                            onclick="if (!(confirm('Kas olete kindel, et soovite broneeringu andmed kustutada?'))) return false" />
+                </form>
+            </td>
+            <td>
+                <form action="#" th:action="@{/update}" method="POST">
+                    <input type="hidden" name="id" th:value="${visit.id}" />
+                    <button type="submit" class="btn btn-info btn-sm" th:text="#{registrations.update}" />
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="font-italic text-center" th:if="${visits.empty}" th:text="#{registrations.empty}" />
+</div>
+
+<!-- https://stackoverflow.com/questions/27484706/thymeleaf-clickable-row -->
+<script>
+    function rowClicked(value) {
+        location.href = "/registrations/" + value;
+    }
+</script>
+
+<!-- https://stackoverflow.com/questions/31176402/how-to-hide-flash-message-after-few-seconds -->
+<script type="text/javascript">
+    window.setTimeout("document.getElementById('message').style.display='none';", 1500);
+</script>
+</body>
+</html>

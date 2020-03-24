@@ -1,0 +1,45 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title th:text="#{registrations.title}" />
+</head>
+<body>
+
+<div class="container">
+    <h3 th:text="#{registrations.title}" />
+    <hr>
+</div>
+
+<div class="container">
+
+    <h4 class="text-success" th:text="#{view.detail}" />
+
+    <form action="#" th:object="${dentistVisitEntity}">
+        <div>
+            <div>
+                <input type="hidden" th:field="*{id}" />
+            </div>
+
+            <div>
+                <div style="display:inline-block; width:200px;"><p th:text="#{form.dentistName}">dentist.name</p></div>
+                <div style="display:inline-block; width:200px;"><input type="text" th:value="*{dentistName}" th:field="*{dentistName}" disabled /></div>
+            </div>
+
+            <div>
+                <div style="display:inline-block; width:200px;"><p th:text="#{form.visitDateTime}">visit.date</p></div>
+                <div style="display:inline-block; width:200px;"><input type="text" th:value="*{visitDateTime}" th:field="*{visitDateTime}" disabled /></div>
+            </div>
+            <hr>
+            <button type="button" class="btn btn-info" th:onclick="'location.href = \'' + @{/registrations} + '\''" th:text="#{view.back}" />
+        </div>
+    </form>
+</div>
+</body>
+</html>
+

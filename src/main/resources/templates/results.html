@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title th:text="#{registrations.title}" />
+</head>
+<div class="container">
+    <h3 th:text="#{registrations.title}" />
+</div>
+<div class="container">
+    <body>
+    <h4 class="text-success text-center" th:text="#{results.ok}" />
+    <hr>
+    <a th:href ="@{/}" >
+        <button type="submit" class="btn btn-primary btn-lg btn-block" th:text="#{results.back}"/>
+    </a>
+    <hr>
+    <a th:href ="@{/registrations}" >
+        <button type="submit" class="btn btn-info btn-lg btn-block" th:text="#{results.registrations}"/>
+    </a>
+    </body>
+</div>
+</html>
